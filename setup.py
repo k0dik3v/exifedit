@@ -6,10 +6,11 @@ setup(
     packages=find_packages(),
     install_requires=[
         'click',
+        'Pillow',
     ],
     entry_points={
         'console_scripts': [
-            'edit-exif = app.cli:hello',
+            'edit-exif = app.cli:cli',
         ],
     },
 )
