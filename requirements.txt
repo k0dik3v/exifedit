@@ -1,0 +1,8 @@
+click==8.1.7
+-e git+ssh://git@github.com/k0dik3v/exifedit.git@33bb3aacec5503b8a0d79f46d833b74a51f4bff3#egg=edit_exif
+iniconfig==2.0.0
+packaging==24.1
+pluggy==1.5.0
+pytest==8.2.2
+setuptools==70.1.0
+wheel==0.43.0
