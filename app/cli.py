@@ -1,5 +1,5 @@
 import click
-from app.utils import show_exif_data
+from app.utils import display_exif_data
 
 
 @click.group()
@@ -9,19 +9,18 @@ def cli():
 
 @cli.command()
 @click.option(
-    '-s',
-    '--show-exif',
-    'img_path',
+    "-s",
+    "--show-exif",
+    "img_path",
     type=click.Path(exists=True),
-    help='Path to the image file to display EXIF data.'
+    help="Path to the image file to display EXIF data.",
 )
 def show_exif(img_path):
     if img_path:
-        show_exif_data(img_path)
+        display_exif_data(img_path)
     else:
-        click.echo(
-            "No image path provided. Use the -s option to specify an image.")
+        click.echo("No image path provided. Use the -s option to specify an image.")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()
