@@ -1,5 +1,5 @@
 import logging
-from PIL import Image
+from PIL import Image, ExifTags
 from PIL.ExifTags import TAGS, GPSTAGS
 import click
 
@@ -10,14 +10,14 @@ logging.basicConfig(
 )
 
 
-def get_all_tags():
+def get_all_tag_names():
     all_tags = {}
     all_tags.update(TAGS)
     all_tags.update(GPSTAGS)
     return all_tags
 
 
-def get_tag(tag, all_tags):
+def get_tag_name(tag, all_tags):
     return all_tags.get(tag, f"Unknown tag {tag}")
 
 
@@ -33,34 +33,11 @@ def get_gps_info(exif_data):
     gps_info = exif_data.get(34853)
 
     if not gps_info:
-        return "No GPS data found."
-
-    gps_data = {}
-
-    for k in gps_info:
-        decode = GPSTAGS.get(k, k)
-        gps_data[decode] = gps_info[k]
-
-    _lat = gps_data.get('GPSLatitude')
-    _lat_ref = gps_data.get('GPSLatitudeRef')
-    _lon = gps_data.get('GPSLongitude')
-    _lon_ref = gps_data.get('GPSLongitudeRef')
-
-    if _lat and _lat_ref and _lon and _lon_ref:
-        lat = convert_to_degrees(_lat)
-        if _lat_ref != "N":
-            lat = -lat
-
-        lon = convert_to_degrees(_lon)
-        if _lon_ref != "E":
-            lon = -lon
-
-        return f"Latitude: {lat}, Longitude: {lon}"
-    return "No GPS data found."
+        return "No GPS data."
 
 
 def show_exif_data(img_path):
-    all_tags = get_all_tags()
+    all_tags = get_all_tag_names()
     try:
         img = Image.open(img_path)
         exif = img.getexif()
@@ -68,8 +45,11 @@ def show_exif_data(img_path):
         if exif is not None:
             exif_str = []
             for t, v in exif.items():
-                tag = get_tag(t, all_tags)
-                exif_str.append(f"{tag:25}: {v}")
+                tag = get_tag_name(t, all_tags)
+                if tag_name == "GPSInfo":
+                    gps_info_str
+                exif_str.append(f"{tag:25}: {v}"): w
+                : w
 
             gps_info_str = get_gps_info(exif)
             exif_str.append(gps_info_str)
